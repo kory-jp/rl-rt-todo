@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { AiFillEdit } from "react-icons/ai";
 import EditTodo from "./EditTodo";
+import Count from "./count";
 
 const SearchAndButtton = styled.div`
   display: flex;
@@ -75,6 +76,7 @@ const EditButton = styled.span`
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [searchName, setSearchName] = useState("");
+  const [count, setCount] = useState([]);
 
   useEffect(() => {
     axios
@@ -116,6 +118,34 @@ function TodoList() {
         setTodos(newTodos);
       });
   };
+
+  // -useEffectを用いると画面読み込み時に一度だけデータの取得がされる
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3001/api/v1/counts/2.json")
+  //     .then((resp) => {
+  //       console.log(resp.data);
+  //       const getCount = resp.data;
+  //       console.log(getCount);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/v1/counts/2.json")
+      .then((resp) => {
+        console.log(resp.data);
+        setCount(resp.data);
+      })
+      .catch((e) => {
+        console.loq(e);
+      });
+  }, []);
+
+  const num = count.number;
 
   return (
     <>
@@ -168,6 +198,7 @@ function TodoList() {
             );
           })}
       </div>
+      <Count getCount={num} />
     </>
   );
 }
