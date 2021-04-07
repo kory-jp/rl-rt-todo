@@ -62,7 +62,6 @@ float: left;
 const Count = (props) => {
   console.log(props);
   const num = props.getCount;
-  Number(num);
   console.log(num);
   const [count, setCount] = useState(num);  
 

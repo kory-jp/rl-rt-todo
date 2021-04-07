@@ -76,7 +76,7 @@ const EditButton = styled.span`
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [searchName, setSearchName] = useState("");
-  const [count, setCount] = useState([]);
+  // const [count, setCount] = useState([]);
 
   useEffect(() => {
     axios
@@ -119,33 +119,20 @@ function TodoList() {
       });
   };
 
-  // -useEffectを用いると画面読み込み時に一度だけデータの取得がされる
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3001/api/v1/counts/2.json")
-  //     .then((resp) => {
-  //       console.log(resp.data);
-  //       const getCount = resp.data;
-  //       console.log(getCount);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // }, []);
-
-  useEffect(() => {
+  const number = () => {
     axios
       .get("http://localhost:3001/api/v1/counts/2.json")
-      .then((resp) => {
-        console.log(resp.data);
-        setCount(resp.data);
+      .then((response) => {
+        console.log(response.data.number);
+        return setCount(response.data.number);
       })
       .catch((e) => {
-        console.loq(e);
+        console.log(e);
       });
-  }, []);
+  };
 
-  const num = count.number;
+  number();
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -198,7 +185,7 @@ function TodoList() {
             );
           })}
       </div>
-      <Count getCount={num} />
+      <Count getCount={count} />
     </>
   );
 }
