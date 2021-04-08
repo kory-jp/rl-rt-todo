@@ -60,10 +60,12 @@ float: left;
 
 
 const Count = (props) => {
-  console.log(props);
   const num = props.getCount;
-  console.log(num);
-  const [count, setCount] = useState(num);  
+  const [count, setCount] = useState(0);  
+  useEffect(()=> {
+    console.log("実行されました")
+    setCount(num);
+  },[count])
 
   const minus = () => {
     setCount(count-1)
