@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import { AiFillEdit } from "react-icons/ai";
 import EditTodo from "./EditTodo";
+import Count from "./count";
 
 const SearchAndButtton = styled.div`
   display: flex;
@@ -75,6 +76,7 @@ const EditButton = styled.span`
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [searchName, setSearchName] = useState("");
+  // const [count, setCount] = useState([]);
 
   useEffect(() => {
     axios
@@ -116,6 +118,20 @@ function TodoList() {
         setTodos(newTodos);
       });
   };
+
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/v1/counts/2.json")
+      .then((response) => {
+        console.log(response.data.number);
+        return setCount(response.data.number);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <>
@@ -168,6 +184,7 @@ function TodoList() {
             );
           })}
       </div>
+      <Count setCount={count} />
     </>
   );
 }
