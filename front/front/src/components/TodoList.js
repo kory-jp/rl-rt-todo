@@ -119,7 +119,9 @@ function TodoList() {
       });
   };
 
-  const number = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
     axios
       .get("http://localhost:3001/api/v1/counts/2.json")
       .then((response) => {
@@ -129,10 +131,7 @@ function TodoList() {
       .catch((e) => {
         console.log(e);
       });
-  };
-
-  number();
-  const [count, setCount] = useState(0);
+  }, []);
 
   return (
     <>
@@ -185,7 +184,7 @@ function TodoList() {
             );
           })}
       </div>
-      <Count getCount={count} />
+      <Count setCount={count} />
     </>
   );
 }
