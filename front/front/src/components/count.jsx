@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
-// import TodoList, {getCount} from './TodoList'
 
 const Title = styled.div`
   display: block;
@@ -60,24 +58,8 @@ float: left;
 
 
 const Count = (props) => {
-  console.log(props);
-  const num = props.setCount;
-  console.log(num);
-  // const [ getCount ] = props;
-  
-  useEffect(()=> {
-    setCount(num)
-  },[num]);
-  
-  const [count, setCount] = useState(num);  
-
-  const minus = () => {
-    setCount(count-1)
-  }
-
-  const plus = () => {
-    setCount(count+1)
-  }
+  const { count, plus, minus} = props;
+  console.log(count)
 
   return (
     <div>

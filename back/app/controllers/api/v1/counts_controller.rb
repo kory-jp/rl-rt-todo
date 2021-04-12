@@ -17,6 +17,7 @@ module Api
   
       def update
         count = Count.find(params[:id])
+        # binding.pry
         if count.update(count_params)
           render json: count
         else
