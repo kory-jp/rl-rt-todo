@@ -76,7 +76,6 @@ const EditButton = styled.span`
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [searchName, setSearchName] = useState("");
-  // const [count, setCount] = useState([]);
 
   useEffect(() => {
     axios
@@ -125,13 +124,62 @@ function TodoList() {
     axios
       .get("http://localhost:3001/api/v1/counts/2.json")
       .then((response) => {
-        console.log(response.data.number);
+        console.log(response);
         return setCount(response.data.number);
       })
       .catch((e) => {
         console.log(e);
       });
   }, []);
+
+  // const minus = () => {
+  //   setCount(count - 1);
+  // };
+
+  // const plus = () => {
+  //   setCount(count + 1);
+  // };
+
+  // useEffect(() => {
+  //   axios
+  //     .patch("http://localhost:3001/api/v1/counts/2.json", count)
+  //     .then((response) => {
+  //       console.log(response);
+  //       setCount(response);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // }, [count]);
+
+  // const updateCount = () => {
+  //   axios
+  //     .patch("http://localhost:3001/api/v1/counts/2", count)
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
+
+  const plus = () => {
+    let data = {
+      number: count + 1,
+    };
+    axios.patch("http://localhost:3001/api/v1/counts/2", data).then((resp) => {
+      setCount(resp.data.number);
+    });
+  };
+
+  const minus = () => {
+    let data = {
+      number: count - 1,
+    };
+    axios.patch("http://localhost:3001/api/v1/counts/2", data).then((resp) => {
+      setCount(resp.data.number);
+    });
+  };
 
   return (
     <>
@@ -184,7 +232,7 @@ function TodoList() {
             );
           })}
       </div>
-      <Count setCount={count} />
+      <Count count={count} plus={plus} minus={minus} />
     </>
   );
 }
