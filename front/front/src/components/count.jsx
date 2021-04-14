@@ -58,19 +58,13 @@ float: left;
 
 
 const Count = (props) => {
-  const { count, plus, minus} = props;
+  const { count} = props;
   console.log(count)
 
   return (
     <div>
       <Title>Progress</Title>
-      <MinusButton onClick={minus}>
-        -
-      </MinusButton>
       <Counter>{count}</Counter>
-      <PlusButton onClick={plus}>
-        +
-      </PlusButton>
     </div>
   )
 }
