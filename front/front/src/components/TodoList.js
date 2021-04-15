@@ -104,13 +104,10 @@ function TodoList() {
   };
 
   const updateIsCompleted = (index, val) => {
-    var data = {
-      id: val.id,
-      name: val.name,
-      is_completed: !val.is_completed,
-    };
     axios
-      .patch(`http://localhost:3001/api/v1/lists/${val.id}`, data)
+      .patch(`http://localhost:3001/api/v1/lists/${val.id}/is_completed`, {
+        list: todos[index],
+      })
       .then((resp) => {
         const newTodos = [...todos];
         newTodos[index].is_completed = resp.data.is_completed;
