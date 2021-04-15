@@ -29,6 +29,18 @@ module Api
           end
         end
 
+        def is_completed
+          list = List.find(params[:id])
+          # binding.pry
+          # params[:list][:name] += 'Kotlin'
+          params[:list][:is_completed] = !params[:list][:is_completed]
+          if list.update(list_is_completed_params)
+            render json: list
+          else
+            render json: list.errors, status: 422
+          end
+        end
+
         def destroy
           if List.destroy(params[:id])
             head :no_content
@@ -48,6 +60,10 @@ module Api
         private
 
         def list_params
+          params.require(:list).permit(:name, :is_completed)
+        end
+
+        def list_is_completed_params
           params.require(:list).permit(:name, :is_completed)
         end
       end

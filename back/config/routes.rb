@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       # ルーティングの記載順注意
       delete '/lists/destroy_all', to: 'lists#destroy_all'
       resources :lists, only: %i[index show create update destroy]
+      patch '/lists/:id/is_completed', to: 'lists#is_completed'
       resources :counts
     end
   end
